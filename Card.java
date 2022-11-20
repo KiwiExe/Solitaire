@@ -1,6 +1,10 @@
 
 public class Card {
+    // public static final int SPADES = 0;
 
+    public static final char[] SUITS = { 'S', 'H', 'D', 'C' };
+    public static final char[] COLORS = { 'B', 'R' };
+    public static final char[] VALUES = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
     private char color;
     private char suit;
     private char value;
@@ -78,7 +82,7 @@ public class Card {
 
     // [A,2,3,4,5,6,7,8,9,T,J,Q,K]
     public void setValue(char value) {
-        for(char c : new char[] {'A','2','3','4','5','6','7','8','9','T','J','Q','K'}) {
+        for (char c : new char[] { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' }) {
             if (value == c) {
                 this.value = value;
                 return;

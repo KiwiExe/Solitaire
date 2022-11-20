@@ -1,22 +1,26 @@
 public class Deck {
     private Card[] deck;
     private int cardsUsed;
+    public static final char[] SUITS = { 'C', 'D', 'H', 'S' };
+    public static final char[] COLORS = { 'B', 'R' };
+    public static final char[] VALUES = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
 
     public Deck() {
         deck = new Card[52];
         int cardCt = 0; // How many cards have been created so far.
-        for (int suit = 1; suit <= 4; suit++) {
-            char color;
-            if (suit == 2 || suit == 3) {
-                color = 'R';
-            } else {
-                color = 'B';
+            for (char suit : SUITS){
+                if (suit == 'C' || suit == 'S'){
+                    for (char value : VALUES){
+                        deck[cardCt] = new Card('B', suit, value, false);
+                        cardCt++;
+                    }
+                } else {
+                    for (char value : VALUES){
+                        deck[cardCt] = new Card('R', suit, value, false);
+                        cardCt++;
+                    }
+                }
             }
-            for (char value : new char[] { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' }) {
-                deck[cardCt] = new Card(color, suit, value, false);
-                cardCt++;
-            }
-        }
         cardsUsed = 0;
     }
 
