@@ -12,12 +12,7 @@ public class Deck {
             } else {
                 color = 'B';
             }
-            for (int i = 50; i <= 57; i++) {
-                deck[cardCt] = new Card(color, suit, (char) i, false);
-                cardCt++;
-            }
-            // For each of the non-numeric cards:
-            for (char value : new char[] { 'T', 'J', 'Q', 'K', 'A' }) {
+            for (char value : new char[] { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' }) {
                 deck[cardCt] = new Card(color, suit, value, false);
                 cardCt++;
             }
