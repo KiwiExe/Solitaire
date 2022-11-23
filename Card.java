@@ -4,7 +4,7 @@ public class Card {
 
     public static final char[] SUITS = { 'S', 'H', 'D', 'C' };
     public static final char[] COLORS = { 'B', 'R' };
-    public static final char[] VALUES = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+    public static final char[] VALUES = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
     private char color;
     private char suit;
     private char value;
@@ -12,13 +12,6 @@ public class Card {
 
     // Constructor
     public Card(char color, char suit, char value, boolean isFaceUp) {
-        setColor(color);
-        setSuit(suit);
-        setValue(value);
-        setFaceUp(isFaceUp);
-    }
-
-    public Card(char color, int suit, char value, boolean isFaceUp) {
         setColor(color);
         setSuit(suit);
         setValue(value);
@@ -59,25 +52,6 @@ public class Card {
             throw new IllegalArgumentException("Suit must be C, D, H, or S");
         }
         this.suit = suit;
-    }
-
-    public void setSuit(int suit) {
-        switch (suit) {
-            case 1:
-                this.suit = 'C';
-                break;
-            case 2:
-                this.suit = 'D';
-                break;
-            case 3:
-                this.suit = 'H';
-                break;
-            case 4:
-                this.suit = 'S';
-                break;
-            default:
-                throw new IllegalArgumentException("Suit must be 1, 2, 3, or 4");
-        }
     }
 
     // [A,2,3,4,5,6,7,8,9,T,J,Q,K]
@@ -134,6 +108,6 @@ public class Card {
     // toString
     @Override
     public String toString() {
-        return "card [color=" + color + ", suit=" + suit + ", value=" + value + "]";
+        return value + suit + " [color=" + color + ", suit=" + suit + ", value=" + value + "]";
     }
 }

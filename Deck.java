@@ -8,7 +8,7 @@ public class Deck {
     public Deck() {
         deck = new Card[52];
         int cardCt = 0; // How many cards have been created so far.
-            for (char suit : SUITS){
+            for (char suit : SUITS) {
                 if (suit == 'C' || suit == 'S'){
                     for (char value : VALUES){
                         deck[cardCt] = new Card('B', suit, value, false);

@@ -11,5 +11,6 @@ public class workspace {
         }
         // Print the hand
         System.out.println(hand);
+        char x = hand.peakCard(0).getValue();
     }
 }
