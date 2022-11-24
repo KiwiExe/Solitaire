@@ -108,6 +108,6 @@ public class Card {
     // toString
     @Override
     public String toString() {
-        return value + suit + " [color=" + color + ", suit=" + suit + ", value=" + value + "]";
+        return value + ' ' + suit + " [color=" + color + ", suit=" + suit + ", value=" + value + "]";
     }
 }
