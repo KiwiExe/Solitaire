@@ -11,6 +11,11 @@ public class workspace {
         }
         // Print the hand
         System.out.println(hand);
-        char x = hand.peakCard(0).getValue();
+        char x = hand.revealCard().getValue();
+
+        // Print the value of the revealed card
+
+        System.out.println(x);
+        
     }
 }

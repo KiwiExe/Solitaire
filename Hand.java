@@ -14,6 +14,10 @@ public class Hand{
         size++;
     }
 
+    public Card revealCard() {
+        return hand.peek();
+    }
+
     public Card removeCard() {
         size--;
         return hand.pop();
