@@ -120,6 +120,7 @@ public class Table extends Checks {
     }
 
     // Remove a series of cards from the table
+    // Currently removes the cards like a Stack. Might be worth rewriting to take more advatage of LinkedList strcture
     public LinkedList<Card> removeCards(int column, int numCards) {
         if(canRemoveSeriesFromTable(column, numCards)){
             LinkedList<Card> cards = new LinkedList<Card>();
