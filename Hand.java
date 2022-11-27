@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 public class Hand{
     private Stack<Card> hand;
