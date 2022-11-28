@@ -22,6 +22,7 @@ public class Board extends Player {
         // Deal the cards to the table
         for (int i = 1; i <= 7; i++) {
             for (int j = i; j <= 7 ; j++) {
+                //Last card of every column should be face up
                 if (j == i) {
                     table.addCard(deck.dealCard(), j, true);
                 } else {
