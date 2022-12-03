@@ -170,7 +170,7 @@ public class Table extends Checks {
     }
 
     // Print a column of the table
-    public String collumntoString(int column) {
+    public String columntoString(int column) {
         switch(column) {
             case 1:
                 for (Card card : Column1) {
@@ -180,13 +180,9 @@ public class Table extends Checks {
                         return "XX" ;
                     }
                 }
+            }
     }
 
 
 
 }
-    // toString
-    @Override
-    public String toString() {
-        return "[" + value + " " + suit + "]";
-    }
