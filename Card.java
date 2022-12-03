@@ -35,6 +35,10 @@ public class Card {
         return isFaceUp;
     }
 
+    public boolean isFaceUp() {
+        return isFaceUp;
+    }
+
     // Setters
     public void setColor(char color) {
         if (color == 'R' || color == 'B') {
@@ -109,5 +113,14 @@ public class Card {
     @Override
     public String toString() {
         return value + ' ' + suit + " [color=" + color + ", suit=" + suit + ", value=" + value + "]";
+    }
+
+    //to Short String with face up or down
+    public String toBoardString() {
+        if (this.isFaceUp) {
+            return "[" + value + " " + suit + "]";
+        } else {
+            return "[XX X]";
+        }
     }
 }

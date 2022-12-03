@@ -169,5 +169,24 @@ public class Table extends Checks {
         }
     }
 
+    // Print a column of the table
+    public String collumntoString(int column) {
+        switch(column) {
+            case 1:
+                for (Card card : Column1) {
+                    if(card.isFaceUp()){
+                        return card.toString();
+                    } else {
+                        return "XX" ;
+                    }
+                }
+    }
+
+
 
 }
+    // toString
+    @Override
+    public String toString() {
+        return "[" + value + " " + suit + "]";
+    }
