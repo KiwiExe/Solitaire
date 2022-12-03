@@ -50,10 +50,26 @@ public class Pillars extends Checks {
     // Peak at all the top cards of the pillars
     public HashMap<Character, Card> peakCardsAsHashMap() {
         HashMap<Character, Card> cards = new HashMap<Character, Card>();
-        cards.put('C', Clubs.peek());
-        cards.put('D', Diamonds.peek());
-        cards.put('H', Hearts.peek());
-        cards.put('S', Spades.peek());
+        try{
+            cards.put('C', Clubs.peek());
+        } catch (EmptyStackException e) {
+            cards.put('C', null);
+        }
+        try{
+            cards.put('D', Diamonds.peek());
+        } catch (EmptyStackException e) {
+            cards.put('D', null);
+        }
+        try{
+            cards.put('H', Hearts.peek());
+        } catch (EmptyStackException e) {
+            cards.put('H', null);
+        }
+        try{
+            cards.put('S', Spades.peek());
+        } catch (EmptyStackException e) {
+            cards.put('S', null);
+        }
         return cards;
     }
 
@@ -67,6 +83,20 @@ public class Pillars extends Checks {
         return cards;
     }
     
+    //Determin if a pillar is empty
+    public boolean isEmpty(char suit){
+        if(suit == 'C'){
+            return Clubs.isEmpty();
+        } else if(suit == 'D'){
+            return Diamonds.isEmpty();
+        } else if(suit == 'H'){
+            return Hearts.isEmpty();
+        } else if(suit == 'S'){
+            return Spades.isEmpty();
+        } else {
+            throw new IllegalArgumentException("Must be a valid suit (C, D, H, S) and a char type not a string");
+        }
+    }
 
 
 

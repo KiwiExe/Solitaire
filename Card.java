@@ -116,7 +116,7 @@ public class Card {
     }
 
     //to Short String with face up or down
-    public String toBoardString() {
+    public String toShortString() {
         if (this.isFaceUp) {
             return "[" + value + " " + suit + "]";
         } else {

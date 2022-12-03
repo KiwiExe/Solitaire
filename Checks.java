@@ -2,26 +2,32 @@ import java.util.*;
 
 public abstract class Checks {
 
-    public boolean canMoveCardToTable(Card card, int column){
+    public static boolean canMoveCardToTable(Card card, int column){
         return true;
     }
-    public boolean canMoveSeriesToTable(LinkedList<Card> cards, int column){
+    public static boolean canMoveSeriesToTable(LinkedList<Card> cards, int column){
         return true;
     }
-    public boolean canRemoveCardFromTable(int column){
+    public static boolean canRemoveCardFromTable(int column){
         return true;
     }
-    public boolean canRemoveSeriesFromTable(int column, int numCards){
+    public static boolean canRemoveSeriesFromTable(int column, int numCards){
         return true;
     }
-    public boolean canMoveCardToPillar(Card card, char suit){
+    public static boolean canMoveCardToPillar(Card card, char suit){
         return true;
     }
-    public boolean gameIsWon(){
+    public static boolean gameIsWon(){
         return true;
     }
-    public boolean movesLeft(){
+    public static boolean movesLeft(){
         return true;
+    }
+    public static boolean canRemoveFromTable(int column){
+        return canRemoveCardFromTable(column);
+    }
+    public static boolean canRemoveFromTable(int column, int numCards){
+        return canRemoveSeriesFromTable(column, numCards);
     }
     
     
