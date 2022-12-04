@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Table extends Checks {
+public class Table {
     private LinkedList<Card> Column1;
     private LinkedList<Card> Column2;
     private LinkedList<Card> Column3;
@@ -8,8 +8,10 @@ public class Table extends Checks {
     private LinkedList<Card> Column5;
     private LinkedList<Card> Column6;
     private LinkedList<Card> Column7;
+    private ArrayList<LinkedList<Card>> Columns;
 
     // Constructor
+    // (Zander) Created an arraylist called "Columns" which contains the columns as linked lists
     public Table() {
         Column1 = new LinkedList<Card>();
         Column2 = new LinkedList<Card>();
@@ -18,11 +20,19 @@ public class Table extends Checks {
         Column5 = new LinkedList<Card>();
         Column6 = new LinkedList<Card>();
         Column7 = new LinkedList<Card>();
+        Columns = new ArrayList<LinkedList<Card>>();
+        Columns.add(Column1);
+        Columns.add(Column2);
+        Columns.add(Column3);
+        Columns.add(Column4);
+        Columns.add(Column5);
+        Columns.add(Column6);
+        Columns.add(Column7);
     }
 
     // Add a card to the table
     public void addCard(Card card, int column) {
-        if(canMoveCardToTable(card, column)){
+        if(canMoveCardToColumn(card, Columns)){
             switch (column) {
                 case 1:
                     Column1.add(card);
@@ -168,6 +178,32 @@ public class Table extends Checks {
             throw new IllegalArgumentException("Cards cannot be removed from table");
         }
     }
-
+    
+    // (Zander) Get the last card of a given column
+    public Card lastCard(int columnNumber) {
+    	switch (columnNumber) {
+    		case 1:
+    			return Column1.getLast();
+    		case 2:
+    			return Column2.getLast();
+    		case 3:
+    			return Column3.getLast();
+    		case 4:
+    			return Column4.getLast();
+    		case 5:
+    			return Column5.getLast();
+    		case 6:
+    			return Column6.getLast();
+    		case 7:
+    			return Column7.getLast();
+    		default:
+    			throw new IllegalArgumentException("Could not get the last card from this column!");
+    	}
+    }
+    
+    // (Zander) Return the last card of a column
+    public Card getLast(Card last) {
+    	return last;
+    }
 
 }
