@@ -3,7 +3,7 @@ import java.util.*;
 public abstract class Checks {
 	
 	// Check if the card can be added to a given column
-    public boolean canMoveCardToColumn(Card card, LinkedList<Card> column) {
+    public static boolean canMoveCardToColumn(Card card, LinkedList<Card> column) {
     	if (column.isEmpty()) {
     		if (card.getValue() == 'K') {
     			return true;
@@ -18,7 +18,7 @@ public abstract class Checks {
     }
     
     // Check if the card can be added to any column
-    public boolean canMoveCardToTable(Card card, ArrayList<LinkedList<Card>> Columns) {
+    public static boolean canMoveCardToTable(Card card, ArrayList<LinkedList<Card>> Columns) {
     	for (LinkedList<Card> column : Columns) {
     		if (canMoveCardToColumn(card, column)) {
         		return true;
@@ -28,7 +28,7 @@ public abstract class Checks {
     }
     
     // Check if the series of cards can be added to a given column
-    public boolean canMoveSeriesToColumn(LinkedList<Card> cards, LinkedList<Card> column) {
+    public static boolean canMoveSeriesToColumn(LinkedList<Card> cards, LinkedList<Card> column) {
     	Card first = cards.getFirst();
     	if (canMoveCardToColumn(first, column)) {
     		return true;
@@ -37,7 +37,7 @@ public abstract class Checks {
     }
     
     // Check if the series of cards can be added to any column
-    public boolean canMoveSeriesToTable(LinkedList<Card> cards, ArrayList<LinkedList<Card>> Columns) {
+    public static boolean canMoveSeriesToTable(LinkedList<Card> cards, ArrayList<LinkedList<Card>> Columns) {
     	Card first = cards.getFirst();
     	if (canMoveCardToTable(first, Columns)) {
     		return true;
@@ -46,7 +46,7 @@ public abstract class Checks {
     }
     
     // Check if the card can be removed from a given column
-    public boolean canRemoveCardFromColumn(Card card, LinkedList<Card> column) {
+    public static boolean canRemoveCardFromColumn(Card card, LinkedList<Card> column) {
     	if (!column.isEmpty()) {
     		Card last = column.getLast();
     		if (card == last) {
@@ -57,7 +57,7 @@ public abstract class Checks {
     }
     
     // Check if the card can be removed from any column
-    public boolean canRemoveCardFromTable(Card card, ArrayList<LinkedList<Card>> Columns) {
+    public static boolean canRemoveCardFromTable(Card card, ArrayList<LinkedList<Card>> Columns) {
     	for (LinkedList<Card> column : Columns) {
     		if (canRemoveCardFromColumn(card, column)) {
     			return true;
@@ -67,7 +67,7 @@ public abstract class Checks {
     }
     
     // Check if the series of cards can be removed from a given column
-    public boolean canRemoveSeriesFromColumn(LinkedList<Card> cards, LinkedList<Card> column) {
+    public static boolean canRemoveSeriesFromColumn(LinkedList<Card> cards, LinkedList<Card> column) {
     	Card first = cards.getFirst();
     	if (canRemoveCardFromColumn(first, column)) {
     		return true;
@@ -76,7 +76,7 @@ public abstract class Checks {
     }
     
     // Check if the series of cards can be removed from any column
-    public boolean canRemoveSeriesFromTable(LinkedList<Card> cards, ArrayList<LinkedList<Card>> Columns) {
+    public static boolean canRemoveSeriesFromTable(LinkedList<Card> cards, ArrayList<LinkedList<Card>> Columns) {
     	Card first = cards.getFirst();
     	if (canRemoveCardFromTable(first, Columns)) {
     		return true;
@@ -85,7 +85,7 @@ public abstract class Checks {
     }
     
     // Check if the card can be added to a pillar
-    public boolean canMoveCardToPillar(Card card, Stack<Card> suit) {
+    public static boolean canMoveCardToPillar(Card card, Stack<Card> suit) {
     	if (suit.isEmpty()) {
     		if (card.getValue() == 'A') {
     			return true;
@@ -100,7 +100,7 @@ public abstract class Checks {
     }
 
     // Check if the card can be moved to any of the pillars (may not be needed)
-    public boolean canMoveCardToPillars(Card card, ArrayList<Stack<Card>> Suits) {
+    public static boolean canMoveCardToPillars(Card card, ArrayList<Stack<Card>> Suits) {
     	for (Stack<Card> suit : Suits) {
     		if (canMoveCardToPillar(card, suit)) {
     			return true;
@@ -110,7 +110,7 @@ public abstract class Checks {
     }
     
     // If all suits have a King, then the game has been won
-    public boolean gameIsWon(ArrayList<Stack<Card>> Suits) {
+    public static boolean gameIsWon(ArrayList<Stack<Card>> Suits) {
     	for (Stack<Card> suit : Suits) {
     		if (suit.size() != 13) {
     			return false;
@@ -120,7 +120,7 @@ public abstract class Checks {
     }
     
     // Check if there are any valid moves remaining
-    public boolean validMovesLeft(Card card, ArrayList<LinkedList<Card>> Columns, LinkedList<Card> cards, ArrayList<Stack<Card>> Suits) {
+    public static boolean validMovesLeft(Card card, ArrayList<LinkedList<Card>> Columns, LinkedList<Card> cards, ArrayList<Stack<Card>> Suits) {
     	if (!canMoveCardToTable(card, Columns) && !canMoveSeriesToTable(cards, Columns) && !canRemoveCardFromTable(card, Columns) && !canRemoveSeriesFromTable(cards, Columns) && !canMoveCardToPillars(card, Suits)) {
     		return false;
     	}
