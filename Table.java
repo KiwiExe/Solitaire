@@ -8,6 +8,7 @@ public class Table extends Checks {
     private LinkedList<Card> Column5;
     private LinkedList<Card> Column6;
     private LinkedList<Card> Column7;
+    public String getNumCards;
 
     // Constructor
     public Table() {
@@ -121,7 +122,7 @@ public class Table extends Checks {
 
     // Remove a series of cards from the table
     // Currently removes the cards like a Stack. Might be worth rewriting to take more advatage of LinkedList strcture
-    public LinkedList<Card> removeCards(int column, int numCards) {
+    public LinkedList<Card> removeCard(int column, int numCards) {
         if(canRemoveSeriesFromTable(column, numCards)){
             LinkedList<Card> cards = new LinkedList<Card>();
             switch (column) {
@@ -169,5 +170,119 @@ public class Table extends Checks {
         }
     }
 
+    // Print a column of the table
+    public String columntoString(int column) {
+        String temp = "";
+        switch(column) {
+            case 1:
+                for (Card card : Column1) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            case 2:
+                for (Card card : Column2) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            case 3:
+                for (Card card : Column3) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;  
+            case 4:
+                for (Card card : Column4) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            case 5:
+                for (Card card : Column5) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            case 6:
+                for (Card card : Column6) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            case 7: 
+                for (Card card : Column7) {
+                    temp += card.toShortString() + "\n";
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Column must be 1-7");
+        }
+        return temp;
+    }
 
+    //Get the number of cards in a column
+    public int getNumCards(int column) {
+        switch(column) {
+            case 1:
+                return Column1.size();
+            case 2:
+                return Column2.size();
+            case 3:
+                return Column3.size();
+            case 4:
+                return Column4.size();
+            case 5:
+                return Column5.size();
+            case 6:
+                return Column6.size();
+            case 7:
+                return Column7.size();
+            default:
+                throw new IllegalArgumentException("Column must be 1-7");
+        }
+    }
+
+    //Return a series of cards from a column
+    public LinkedList<Card> getCards(int column, int numCards) {
+        if(canRemoveSeriesFromTable(column, numCards)){
+            LinkedList<Card> cards = new LinkedList<Card>();
+            switch (column) {
+                case 1:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column1.get(Column1.size() - numCards + i));
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column2.get(Column2.size() - numCards + i));
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column3.get(Column3.size() - numCards + i));
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column4.get(Column4.size() - numCards + i));
+                    }
+                    break;
+                case 5:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column5.get(Column5.size() - numCards + i));
+                    }
+                    break;
+                case 6:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column6.get(Column6.size() - numCards + i));
+                    }
+                    break;
+                case 7:
+                    for (int i = 0; i < numCards; i++) {
+                        cards.add(Column7.get(Column7.size() - numCards + i));
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException("Column must be 1-7");
+            }
+            return cards;
+        } else {
+            throw new IllegalArgumentException("Cards cannot be removed from table");
+        }
+    }
 }

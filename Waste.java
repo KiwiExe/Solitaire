@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 public class Waste {
     private Stack<Card> cards;
@@ -17,8 +16,17 @@ public class Waste {
     }
 
     // Remove look at the top card of the waste
-    public Card revealCard() {
+    public Card returnTopCard() {
         return cards.peek();
+    }
+
+    // Return the top card of the waste as a string
+    public String revealCardAsString() {
+        try{
+        return cards.peek().toShortString();
+        } catch (EmptyStackException e) {
+            return "Empty";
+        }
     }
 
     // Remove the top card of the waste

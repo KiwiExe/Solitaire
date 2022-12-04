@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Player extends Checks {
+public class Player extends Checks {
 
     private Card card;
     private LinkedList<Card> cards;
