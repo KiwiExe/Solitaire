@@ -1,4 +1,6 @@
 **First Revision Completed For:**
+
+Data Structures
 - Card
 - Deck
 - Hand
@@ -6,7 +8,10 @@
 - Player
 - Table
 
+Checks
+- All
+
+
 **TODO:**
 - Write Documentation
-- Checks
 - Debug

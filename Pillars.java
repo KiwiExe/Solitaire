@@ -6,12 +6,19 @@ public class Pillars extends Checks {
     private Stack<Card> Diamonds;
     private Stack<Card> Hearts;
     private Stack<Card> Spades;
+    private ArrayList<Stack<Card>> Suits;
 
+    // (Zander) Created an arraylist called "Suits" which contains the suit stacks
     public Pillars() {
         Clubs = new Stack<Card>();
         Diamonds = new Stack<Card>();
         Hearts = new Stack<Card>();
         Spades = new Stack<Card>();
+        Suits = new ArrayList<Stack<Card>>();
+        Suits.add(Hearts);
+        Suits.add(Diamonds);
+        Suits.add(Clubs);
+        Suits.add(Spades);
     }
 
     // Add a card to the pillar
