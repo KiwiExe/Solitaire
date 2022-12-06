@@ -203,10 +203,11 @@ public class Table {
         }
     }
 
+    // (Austin) getLast is a default method so you don't need to redefine it, also I'm not sure what this was even supposed to do. It took in a card and then returned it. 
     // (Zander) Return the last card of a column
-    public Card getLast(Card last) {
-        return last;
-    }
+    // public Card getLast(Card last) {
+    //     return last;
+    // }
 
     // Print a column of the table
     public String columntoString(int column) {

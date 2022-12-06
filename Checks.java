@@ -120,6 +120,10 @@ public abstract class Checks {
     }
     
     // Check if there are any valid moves remaining
+	// This method only checks if the player can put down a card. It needs to check if the player can make any more moves.
+	// Break it down into pieces
+	// 1. Are there cards in the hand that they could draw?
+	// 2. Are there cards 
     public static boolean validMovesLeft(Card card, ArrayList<LinkedList<Card>> Columns, LinkedList<Card> cards, ArrayList<Stack<Card>> Suits) {
     	if (!canMoveCardToTable(card, Columns) && !canMoveSeriesToTable(cards, Columns) && !canRemoveCardFromTable(card, Columns) && !canRemoveSeriesFromTable(cards, Columns) && !canMoveCardToPillars(card, Suits)) {
     		return false;
