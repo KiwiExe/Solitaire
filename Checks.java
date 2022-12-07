@@ -1,5 +1,14 @@
 import java.util.*;
 
+/*
+ * TODO:
+ * 
+ * 1. Remove moves remaining
+ * 2. Handle face down cards
+ * 3. Refactor with new data structures
+ * 
+ */
+
 public abstract class Checks {
 	
 	// Check if the card can be added to a given column

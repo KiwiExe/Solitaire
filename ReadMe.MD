@@ -1,3 +1,10 @@
+**TODO:**
+- Refactor Checks / Pillars / Table
+- Finish game play loop
+- Write Documentation
+- Debug
+
+
 **First Revision Completed For:**
 
 Data Structures
@@ -10,8 +17,3 @@ Data Structures
 
 Checks
 - All
-
-
-**TODO:**
-- Write Documentation
-- Debug

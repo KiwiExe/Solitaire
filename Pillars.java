@@ -1,4 +1,12 @@
 import java.util.*;
+/*
+ * TODO:
+ * 
+ * 1. Refactor with new data structures
+ * 2. Change to a hashmap of suits (C, D, H, S) and a stack of cards
+ * 3. Get rid of switch cases with parseChar
+ * 
+ */
 
 public class Pillars extends Checks {
 

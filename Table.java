@@ -1,5 +1,14 @@
 import java.util.*;
 
+/*
+ * TODO:
+ * 
+ * 1. Refactor with new data structures
+ * 2. Change to a hashmap of columns (1-7) and a linked list of cards
+ * 3. Get rid of switch cases with parseInt
+ * 4. 
+ */
+
 public class Table {
     private LinkedList<Card> Column1;
     private LinkedList<Card> Column2;
