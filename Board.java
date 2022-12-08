@@ -3,10 +3,8 @@ import java.util.*;
 /*
  * TODO:
  * 
- * 1. Rewrite using new data structures
- * 2. Change movesLeft to gameWon
- * 3. Handle face down cards with a break to the gameplay loop
- * 4. 
+ * 1. place down loop
+ * 
  */
 
 public class Board extends Player {
@@ -23,17 +21,20 @@ public class Board extends Player {
 
         Player player = new Player();
         dealNewGame();
-        displayBoard(pillars, table, hand, waste);
+        //displayBoard(pillars, table, hand, waste);
 
         // Gamplay Loop
         // Get user input
         Scanner input = new Scanner(System.in);
-        while (Checks.movesLeft()) {
+        while (!Checks.gameIsWon(pillars.getSuits())) {
+            
 
             /*
              * 1. Pick up a card from the table
              */
             do {
+                //Display Board
+                displayBoard(pillars, table, hand, waste);
                 // Selct a pile
                 String pile = "";
                 player.setCard(null);
@@ -48,81 +49,93 @@ public class Board extends Player {
                         && !pile.equals("3") && !pile.equals("4") && !pile.equals("5") && !pile.equals("6")
                         && !pile.equals("7"));
 
-                // If the player selected a column, get the card number
-                int cardNumber = 0;
-                if (pile.equals("1") || pile.equals("2") || pile.equals("3") || pile.equals("4") || pile.equals("5")
-                        || pile.equals("6") || pile.equals("7")) {
-                    System.out.println("Select Card Number: ");
-                    do {
-                        System.out.println(
-                                "Please enter an integer between 1 and " + table.getNumCards((Integer.parseInt(pile))));
-                    } while (cardNumber < 1 || cardNumber > table.getNumCards((Integer.parseInt(pile))));
 
-                    if (Checks.canRemoveSeriesFromTable(Integer.parseInt(pile), cardNumber)) {
-                        player.setCards(table.removeCard(Integer.parseInt(pile), cardNumber));
-                    } else {
-                        System.out.println("You can't remove that series of cards");
-                    }
+                switch (pile) {
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":                    
+                    case "5":
+                    case "6":
+                    case "7":
+
+                        int columnNum = Integer.parseInt(pile);
+                        //If FaceDown, Flip and retry
+                            if (!table.getColumns().get(columnNum).getLast().isFaceUp){
+                                table.getColumns().get(columnNum).getLast().setFaceUp(true);
+                                System.out.println("Flipping Card");
+                                continue;
+                            }
+                        // If the player selected a column, get the card number
+                        int numberOfCards = 0;
+                        System.out.println("Select Card Number: ");
+                        do {
+                            System.out.println("Please enter an integer between 1 and " + table.getNumCards((columnNum)));
+                            try{
+                                numberOfCards = Integer.parseInt(input.nextLine());
+                            } catch (Exception e){
+                                continue;
+                            }
+                        } while (numberOfCards < 1 || numberOfCards > table.getNumCards(columnNum));
+
+                        if (Checks.canRemoveSeriesFromColumn(numberOfCards, table.getColumns().get(columnNum))) {
+                            player.setCards(table.removeCard(columnNum, numberOfCards));
+                        } else {
+                            System.out.println("You can't remove that series of cards");
+                        }
+                        break;
+
+                    case "Hand":
+
+                        if (hand.isEmpty()) {
+                            System.out.println("Hand is empty");
+                        } else {
+                            player.setCard(hand.removeCard());
+                        }
+                        break;
+
+                    case "Waste":
+
+                        if (waste.isEmpty()) {
+                            System.out.println("Waste is empty");
+                        } else {
+                            player.setCard(waste.removeCard());
+                        }
+                        break;
+
+                    case "C":
+                    case "D":
+                    case "H":
+                    case "S":
+
+                        if (pillars.getSuits().get(pile.toCharArray()[0]).empty() ) {
+                            System.out.println("Pillar is empty");
+                        } else {
+                            player.setCard(pillars.removeCard(pile.toCharArray()[0]));
+                        }
+                        break;
+                                    
+                    default:
+                        break;
                 }
 
-                // If the player selected Hand or Waste remove the top card
-                if (pile.equals("Hand")) {
-                    if (hand.isEmpty()) {
-                        System.out.println("Hand is empty");
-                    } else {
-                        player.setCard(hand.removeCard());
-                    }
-                }
-                if (pile.equals("Waste")) {
-                    if (waste.isEmpty()) {
-                        System.out.println("Waste is empty");
-                    } else {
-                        player.setCard(waste.removeCard());
-                    }
-                }
-
-                // If the player selected a suit, remove the top card
-                if (pile.equals("C")) {
-                    if (pillars.isEmpty('C')) {
-                        System.out.println("Clubs is empty");
-                    } else {
-                        player.setCard(pillars.removeCard('C'));
-                    }
-                }
-                if (pile.equals("D")) {
-                    if (pillars.isEmpty('D')) {
-                        System.out.println("Diamonds is empty");
-                    } else {
-                        player.setCard(pillars.removeCard('D'));
-                    }
-                }
-                if (pile.equals("H")) {
-                    if (pillars.isEmpty('H')) {
-                        System.out.println("Hearts is empty");
-                    } else {
-                        player.setCard(pillars.removeCard('H'));
-                    }
-                }
-                if (pile.equals("S")) {
-                    if (pillars.isEmpty('S')) {
-                        System.out.println("Spades is empty");
-                    } else {
-                        player.setCard(pillars.removeCard('S'));
-                    }
-                }
             } while (player.getCard() == null && player.getCards() == null);
 
             /*
              * 2. Place the card on the table
              */
 
-            System.out.println();
-            if (player.getCard() != null) {
-                System.out.println("You are holding: " + player.getCard().toString());
-            }
-            if (player.getCards() != null) {
-                System.out.println("You are holding: " + player.getCards().toString());
-            }
+            do {
+                System.out.println();
+                if (player.getCard() != null) {
+                    System.out.println("You are holding: " + player.getCard().toShortString());
+                }
+                if (player.getCards() != null) {
+                    System.out.println("You are holding: ");
+                    for (Card card : player.getCards())
+                    System.out.println(card.toShortString());
+                }
+            } while (false);
 
         }
         input.close();
@@ -156,6 +169,7 @@ public class Board extends Player {
     }
 
     // Display the board
+
     public static void displayBoard(Pillars pillars) {
         // Display the pillars
         HashMap<Character, Card> tempPillars = pillars.peakCardsAsHashMap();
