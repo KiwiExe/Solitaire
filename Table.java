@@ -1,6 +1,15 @@
 import java.util.*;
 
-public class Table {
+/*
+ * TODO:
+ * 
+ * 1. Refactor with new data structures
+ * 2. Change to a hashmap of columns (1-7) and a linked list of cards
+ * 3. Get rid of switch cases with parseInt
+ * 4. 
+ */
+
+public class Table extends Checks{
     private LinkedList<Card> Column1;
     private LinkedList<Card> Column2;
     private LinkedList<Card> Column3;
@@ -8,12 +17,13 @@ public class Table {
     private LinkedList<Card> Column5;
     private LinkedList<Card> Column6;
     private LinkedList<Card> Column7;
-    private ArrayList<LinkedList<Card>> Columns;
+    private HashMap<Integer, LinkedList<Card>> Columns;
     public String getNumCards;
 
+    //Revision 2
     // Constructor
     // (Zander) Created an arraylist called "Columns" which contains the columns as
-    // linked lists
+    // (Austin) Good idea, but used a HashMap instead
     public Table() {
         Column1 = new LinkedList<Card>();
         Column2 = new LinkedList<Card>();
@@ -22,305 +32,105 @@ public class Table {
         Column5 = new LinkedList<Card>();
         Column6 = new LinkedList<Card>();
         Column7 = new LinkedList<Card>();
-        Columns = new ArrayList<LinkedList<Card>>();
-        Columns.add(Column1);
-        Columns.add(Column2);
-        Columns.add(Column3);
-        Columns.add(Column4);
-        Columns.add(Column5);
-        Columns.add(Column6);
-        Columns.add(Column7);
+        Columns = new HashMap<>();
+        Columns.put(1, Column1);
+        Columns.put(2, Column2);
+        Columns.put(3, Column5);
+        Columns.put(4, Column6);
+        Columns.put(5, Column4);
+        Columns.put(6, Column7);
+        Columns.put(7, Column3);
     }
 
+    //Revision 2
     // Add a card to the table
     public void addCard(Card card, int column) {
-        if (canMoveCardToColumn(card, Columns)) {
-            switch (column) {
-                case 1:
-                    Column1.add(card);
-                    break;
-                case 2:
-                    Column2.add(card);
-                    break;
-                case 3:
-                    Column3.add(card);
-                    break;
-                case 4:
-                    Column4.add(card);
-                    break;
-                case 5:
-                    Column5.add(card);
-                    break;
-                case 6:
-                    Column6.add(card);
-                    break;
-                case 7:
-                    Column7.add(card);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Column must be 1-7");
-            }
-        } else {
-            throw new IllegalArgumentException("Card cannot be added to table");
-        }
+            Columns.get(column).add(card);
     }
 
+    //Revision 2
     // Add a card to the table with a face up (true) or face down (false) boolean
     public void addCard(Card card, int column, boolean faceUp) {
         card.setFaceUp(faceUp);
         addCard(card, column);
     }
 
+    //Revision 2
     // Add a series of cards to the table
     public void addCards(LinkedList<Card> cards, int column) {
-        if (canMoveSeriesToTable(cards, column)) {
-            switch (column) {
-                case 1:
-                    Column1.addAll(cards);
-                    break;
-                case 2:
-                    Column2.addAll(cards);
-                    break;
-                case 3:
-                    Column3.addAll(cards);
-                    break;
-                case 4:
-                    Column4.addAll(cards);
-                    break;
-                case 5:
-                    Column5.addAll(cards);
-                    break;
-                case 6:
-                    Column6.addAll(cards);
-                    break;
-                case 7:
-                    Column7.addAll(cards);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Column must be 1-7");
-            }
+        if (canMoveSeriesToColumn(cards, Columns.get(column))) {
+            Columns.get(column).addAll(cards);
         } else {
-            throw new IllegalArgumentException("Cards cannot be added to table");
+            throw new IllegalArgumentException("Cards cannot be added this column");
         }
     }
 
+    //Revision 2
     // Remove a card from the table
     public Card removeCard(int column) {
-        if (canRemoveCardFromTable(column)) {
-            switch (column) {
-                case 1:
-                    return Column1.removeLast();
-                case 2:
-                    return Column2.removeLast();
-                case 3:
-                    return Column3.removeLast();
-                case 4:
-                    return Column4.removeLast();
-                case 5:
-                    return Column5.removeLast();
-                case 6:
-                    return Column6.removeLast();
-                case 7:
-                    return Column7.removeLast();
-                default:
-                    throw new IllegalArgumentException("Column must be 1-7");
-            }
-        } else {
-            throw new IllegalArgumentException("Card cannot be removed from table");
-        }
+        return Columns.get(column).getLast();
     }
 
+    //Revision 2
     // Remove a series of cards from the table
-    // Currently removes the cards like a Stack. Might be worth rewriting to take
-    // more advatage of LinkedList strcture
     public LinkedList<Card> removeCard(int column, int numCards) {
-        if (canRemoveSeriesFromTable(column, numCards)) {
-            LinkedList<Card> cards = new LinkedList<Card>();
-            switch (column) {
-                case 1:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column1.removeLast());
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column2.removeLast());
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column3.removeLast());
-                    }
-                    break;
-                case 4:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column4.removeLast());
-                    }
-                    break;
-                case 5:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column5.removeLast());
-                    }
-                    break;
-                case 6:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column6.removeLast());
-                    }
-                    break;
-                case 7:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column7.removeLast());
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Column must be 1-7");
+        if (canRemoveSeriesFromColumn(numCards, Columns.get(column))) {
+            LinkedList<Card> holdingCards = new LinkedList<Card>();
+            for (int i = 0; i < numCards; i++) {
+                    holdingCards.add(Columns.get(column).removeLast());
             }
-            return cards;
+            return holdingCards;
         } else {
             throw new IllegalArgumentException("Cards cannot be removed from table");
         }
     }
 
+    //Revision 2
     // (Zander) Get the last card of a given column
     public Card lastCard(int columnNumber) {
-        switch (columnNumber) {
-            case 1:
-                return Column1.getLast();
-            case 2:
-                return Column2.getLast();
-            case 3:
-                return Column3.getLast();
-            case 4:
-                return Column4.getLast();
-            case 5:
-                return Column5.getLast();
-            case 6:
-                return Column6.getLast();
-            case 7:
-                return Column7.getLast();
-            default:
-                throw new IllegalArgumentException("Could not get the last card from this column!");
+        try {
+            return Columns.get(columnNumber).getLast();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Could not get the last card from this column!");
         }
     }
 
-    // (Zander) Return the last card of a column
-    public Card getLast(Card last) {
-        return last;
-    }
-
+    //Revision 2
     // Print a column of the table
     public String columntoString(int column) {
         String temp = "";
-        switch (column) {
-            case 1:
-                for (Card card : Column1) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 2:
-                for (Card card : Column2) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 3:
-                for (Card card : Column3) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 4:
-                for (Card card : Column4) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 5:
-                for (Card card : Column5) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 6:
-                for (Card card : Column6) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            case 7:
-                for (Card card : Column7) {
-                    temp += card.toShortString() + "\n";
-                }
-                break;
-            default:
-                throw new IllegalArgumentException("Column must be 1-7");
+        for (Card card : Columns.get(column)) {
+            temp += card.toShortString() + "\n";
         }
         return temp;
     }
 
+    //Revision 2
     // Get the number of cards in a column
     public int getNumCards(int column) {
-        switch (column) {
-            case 1:
-                return Column1.size();
-            case 2:
-                return Column2.size();
-            case 3:
-                return Column3.size();
-            case 4:
-                return Column4.size();
-            case 5:
-                return Column5.size();
-            case 6:
-                return Column6.size();
-            case 7:
-                return Column7.size();
-            default:
+        try{
+            return Columns.get(column).size();
+        } catch (Exception illegealException) {
                 throw new IllegalArgumentException("Column must be 1-7");
         }
     }
 
+    //Revision 2
     // Return a series of cards from a column
     public LinkedList<Card> getCards(int column, int numCards) {
-        if (canRemoveSeriesFromTable(column, numCards)) {
+        if (canRemoveSeriesFromColumn(numCards, Columns.get(column))) {
             LinkedList<Card> cards = new LinkedList<Card>();
-            switch (column) {
-                case 1:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column1.get(Column1.size() - numCards + i));
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column2.get(Column2.size() - numCards + i));
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column3.get(Column3.size() - numCards + i));
-                    }
-                    break;
-                case 4:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column4.get(Column4.size() - numCards + i));
-                    }
-                    break;
-                case 5:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column5.get(Column5.size() - numCards + i));
-                    }
-                    break;
-                case 6:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column6.get(Column6.size() - numCards + i));
-                    }
-                    break;
-                case 7:
-                    for (int i = 0; i < numCards; i++) {
-                        cards.add(Column7.get(Column7.size() - numCards + i));
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Column must be 1-7");
+            for (int i = 1; i <= numCards; i++) {
+                cards.add(Columns.get(column).removeLast());
             }
             return cards;
         } else {
             throw new IllegalArgumentException("Cards cannot be removed from table");
         }
+    }
+
+    //Get Columns
+    public HashMap<Integer, LinkedList<Card>> getColumns() {
+        return Columns;        
     }
 }
