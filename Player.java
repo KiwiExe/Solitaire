@@ -29,4 +29,18 @@ public class Player extends Checks {
         this.Cards = cards;
     }
 
+    public Card placeCard(){
+        Card temp = this.Card;
+        this.Card = null;
+        this.Cards = null;
+        return temp;
+
+    }
+
+    public LinkedList<Card> placeCards(){
+        LinkedList<Card> temp = this.Cards;
+        this.Card = null;
+        this.Cards = null;       
+        return temp;
+    }
 }

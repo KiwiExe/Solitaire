@@ -76,7 +76,8 @@ public abstract class Checks {
 	////////////////////////////////////
     // Check if a series of cards (Starting from the last card at 1 to numCards) can be removed from a given column
 	// It should check if numCards is in bounds and if the series of cards is in valid order (Alternating different colors and correct rank order)
-	// Also facedown cards cannot be a part of a series 
+    // Use card.getRank() to compare order
+    // Facedown cards cannot be a part of a series (refer to the relevant methods in Card.java)
     public static boolean canRemoveSeriesFromColumn(Integer numCards, LinkedList<Card> column) {
 		return true;
 		// Card first = cards.getFirst();

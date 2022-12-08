@@ -57,7 +57,7 @@ public class Pillars extends Checks {
 
     // Revision 2
     // Peak at all the top cards of the pillars
-    public HashMap<Character, Card> peakCardsAsHashMap() {
+    public HashMap<Character, Card> peakTopCardsAsHashMap() {
         HashMap<Character, Card> topCards = new HashMap<Character, Card>();
         try{
             topCards.put('C', Clubs.peek());
